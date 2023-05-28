@@ -1,0 +1,27 @@
+{
+    "name": "whendy/translation",
+    "version":  "1.0",
+    "description": "A Translation package for Laravel 4 with database and cache support",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Whendy",
+            "email": "ahmadwindiwijayanto@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "illuminate/support": "4.x",
+        "illuminate/translation": "4.x",
+        "illuminate/database": "4.x"
+    },
+    "autoload": {
+        "classmap": [
+            "src/migrations"
+        ],
+        "psr-0": {
+            "Whendy\\Translation": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}
