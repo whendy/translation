@@ -1,4 +1,4 @@
-## Laravel's localization for laravel 4
+## Laravel 4 Translation Language Manager
 
 Original https://github.com/Waavi/translation
 
@@ -24,6 +24,12 @@ You may publish the package's configuration if you so choose:
 
 	php artisan config:publish whendy/translation
 
+In route 
+```
+Route::group(['before'=>'localize'],function (){
+    .........
+}); 
+```
 ## Usage
 
 This translations bundle is designed to adapt to your workflow. Translations are accessed just like in Laravel, with replacements and pluralization working as expected. The only difference is how your translations are managed.
