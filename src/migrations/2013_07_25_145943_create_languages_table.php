@@ -24,6 +24,8 @@ class CreateLanguagesTable extends Migration {
             $table->increments('id');
             $table->string('locale', 10)->unique()->index();
             $table->string('name', 60)->unique()->index();
+            $table->boolean('status')->default(1)->index();
+            $table->boolean('default')->default(0)->index();
             $table->softDeletes();
             $table->timestamps();
             $table->engine = 'InnoDB';

@@ -11,7 +11,7 @@
 namespace Whendy\Translation\Models;
 
 
-class Language extends Eloquent {
+class Language extends \Eloquent {
 
     /**
      *  Table name in the database.
@@ -61,5 +61,4 @@ class Language extends Eloquent {
         }
         return $newUri;
     }
-
 }

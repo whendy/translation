@@ -73,6 +73,26 @@ class LanguageProvider {
     }
 
     /**
+     * Returns all languages that have active status.
+     *
+     * @return array  $languages
+     */
+    public function findAllActive()
+    {
+        return $this->createModel()->newQuery()->where('status', '=', 1)->get()->all();
+    }
+
+    /**
+     * Returns all languages that have active status.
+     * @param string $sort
+     * @return array  $languages
+     */
+    public function findAllActiveOrderBy($sort = 'ASC')
+    {
+        return $this->createModel()->newQuery()->where('status', '=', 1)->orderBy('name', $sort)->get()->all();
+    }
+
+    /**
      * Returns all deleted languages.
      *
      * @return array  $languages
@@ -112,6 +132,27 @@ class LanguageProvider {
     public function findAllExcept($language)
     {
         return $this->createModel()->newQuery()->where('locale', '!=', $language->locale)->get();
+    }
+
+    /**
+     * Returns all languages except the one passed by parameter.
+     *
+     * @param  string 	$locale
+     * @return array
+     */
+    public function findAllActiveExcept($locale)
+    {
+        return $this->createModel()->newQuery()->where('locale', '!=', $locale)->where('status', '=', 1)->get();
+    }
+
+    /**
+     *  Checks if a language with the given locale exists.
+     *
+     *  @return boolean
+     */
+    public function isValidLocale($locale)
+    {
+        return $this->createModel()->newQuery()->where('locale', '=', $locale)->where('status', '=', 1)->count() > 0;
     }
 
     /**

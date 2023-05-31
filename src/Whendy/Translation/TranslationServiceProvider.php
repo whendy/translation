@@ -35,6 +35,8 @@ class TranslationServiceProvider extends LaravelTranslationServiceProvider {
 	 */
 	public function boot()
 	{
+        include __DIR__.'/routes.php';
+        $this->app['view']->addNamespace('whendy/translation', __DIR__.'/Views');
 	}
 
 	/**

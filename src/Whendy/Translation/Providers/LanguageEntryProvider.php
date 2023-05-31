@@ -10,6 +10,8 @@
 
 namespace Whendy\Translation\Providers;
 
+use Illuminate\Support\NamespacedItemResolver;
+
 class LanguageEntryProvider {
 
     /**
@@ -70,6 +72,73 @@ class LanguageEntryProvider {
     public function findAll()
     {
         return $this->createModel()->newQuery()->get()->all();
+    }
+
+    /**
+     *  Find a translation per namespace, group and item values
+     *
+     *  @param  string  $locale
+     *  @param  string  $code
+     *  @return Translation
+     */
+    public function findByLangCode($locale, $code)
+    {
+        list($namespace, $group, $item) = $this->parseCode($code);
+        return $this->createModel()->newQuery()->where(['locale' => $locale, 'namespace' => $namespace, 'group' => $group, 'item' => $item])->first();
+    }
+
+    /**
+     *  Find a translation per namespace, group and item values
+     *
+     *  @param  string  $locale
+     *  @param  string  $namespace
+     *  @param  string  $group
+     *  @param  string  $item
+     *  @return Translation
+     */
+    public function findByCode($locale, $namespace, $group, $item)
+    {
+        return $this->createModel()->newQuery()->where(['locale' => $locale, 'namespace' => $namespace, 'group' => $group, 'item' => $item])->first();
+    }
+    /**
+     *  Find a translation per namespace, group and item values
+     *
+     *  @param  string  $code
+     *  @return Translation
+     */
+    public function findFirstByCode($code)
+    {
+        list($namespace, $group, $item) = $this->parseCode($code);
+        return $this->createModel()->newQuery()->where(['namespace' => $namespace, 'group' => $group, 'item' => $item])->first();
+    }
+
+    /**
+     *  Delete all entries by code
+     *
+     *  @param  string  $code
+     *  @return boolean
+     */
+    public function deleteByCode($code)
+    {
+        list($namespace, $group, $item) = $this->parseCode($code);
+        $this->createModel()->newQuery()->where(['namespace' => $namespace, 'group' => $group, 'item' => $item])->delete();
+    }
+
+    /**
+     *  Parse a translation code into its components
+     *
+     *  @param  string $code
+     *  @return boolean
+     */
+    public function parseCode($code)
+    {
+        $segments = (new NamespacedItemResolver)->parseKey($code);
+
+        if (is_null($segments[0])) {
+            $segments[0] = '*';
+        }
+
+        return $segments;
     }
 
     /**

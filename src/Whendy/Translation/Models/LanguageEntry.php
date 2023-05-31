@@ -11,7 +11,7 @@
 namespace Whendy\Translation\Models;
 
 
-class LanguageEntry extends Eloquent {
+class LanguageEntry extends \Eloquent {
 
     /**
      *  Table name in the database.
@@ -31,6 +31,15 @@ class LanguageEntry extends Eloquent {
     public function language()
     {
         return $this->belongsTo('Whendy\Translation\Models\Language');
+    }
+
+    /**
+     *  Returns the full translation code for an entry: namespace.group.item
+     *  @return string
+     */
+    public function getCodeAttribute()
+    {
+        return $this->namespace === '*' ? "{$this->group}.{$this->item}" : "{$this->namespace}::{$this->group}.{$this->item}";
     }
 
     /**

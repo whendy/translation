@@ -29,7 +29,7 @@ class CreateTranslationsTable extends Migration {
             $table->boolean('unstable')->default(false)->index();
             $table->boolean('locked')->default(false)->index();
             $table->timestamps();
-            $table->foreign('locale')->references('locale')->on('translator_languages');
+            $table->foreign('locale')->references('locale')->on('translator_languages')->onUpdate('cascade');
             $table->unique(['locale', 'namespace', 'group', 'item']);
             $table->softDeletes();
             $table->engine = 'InnoDB';
