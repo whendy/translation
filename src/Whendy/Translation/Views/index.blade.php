@@ -41,7 +41,7 @@
                                 <tr>
                                     <td>{{ $language->locale }}</td>
                                     <td>{{ $language->name }}</td>
-                                    <td>{{ ((int)$language->status == 1 ? 'Acitve': 'Not Active') }}</td>
+                                    <td>{{ ((int)$language->status == 1 ? 'Active': 'Not Active') }}</td>
                                     <td>@if((int)$language->default == 1)<strong class="text-success" title="Default"><i class="bi bi-check-square-fill"></i></strong>@else @if((int)$language->status == 1)<a href="javascript:void(0);" class="text-secondary makeItDefault" data-action="{{ route('whendy.translation.language.save', ['id' => $language->id, 'set-default' => true]) }}" title="Make it Default"><strong><i class="bi bi-square"></i></strong></a> @endif @endif</td>
                                     <td>
                                         <a href="javascript:void(0);" class="text-warning show_modal_sm" data-action="{{ route('whendy.translation.language.add_edit', $language->id) }}" data-method="GET" title="@lang('Edit Language')"><i class="bi bi-pencil-square"></i> Edit</a>
